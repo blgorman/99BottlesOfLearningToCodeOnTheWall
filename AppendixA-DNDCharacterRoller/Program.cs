@@ -1,23 +1,55 @@
-﻿namespace DNDCharacterRoller;
+﻿using System;
 
 public class Program
 {
     public static void Main(string[] args)
     {
-        // Appendix A Mini Challenge - The D&D Character Roller
-        //
-        // The Goal:
-        // 1. Ask for the character's name (string).
-        // 2. Ask for the character's class (string).
-        // 3. Generate 6 random stats between 3 and 18 (int).
-        //    Use dice.Next(3, 19) - 3 is inclusive, 19 is exclusive, so 18 is the maximum.
-        // 4. Calculate the average score (double).
-        //    Cast the total to a double before dividing, or C# will truncate the decimal.
-        // 5. Print the character sheet.
+        // 1. Inputs (Strings)
+        Console.WriteLine("Enter your character's name:");
+        string name = Console.ReadLine();
 
-        // Place the Random instance as the first line in Main:
+        Console.WriteLine("Enter your character's class (e.g., Wizard, Fighter):");
+        string characterClass = Console.ReadLine();
+
+        // 2. Random Number Generation
+        // We use 'Random' to generate numbers.
         Random dice = new Random();
 
-        // Your code goes here.
+        // 3. Stats (Integers)
+        // We use int because you can't have 15.5 Strength.
+        int strength = dice.Next(3, 19); // Generates 3 to 18
+        int dexterity = dice.Next(3, 19);
+        int constitution = dice.Next(3, 19);
+        int intelligence = dice.Next(3, 19);
+        int wisdom = dice.Next(3, 19);
+        int charisma = dice.Next(3, 19);
+
+        // 4. Calculations
+        int totalScore = strength + dexterity + constitution + intelligence + wisdom + charisma;
+        
+        // We cast (convert) totalScore to double so we get a decimal result.
+        // If we didn't, 70 / 6 would be 11, not 11.66.
+        double averageScore = (double)totalScore / 6.0;
+        /* Optional - double vs. integer division: 
+        int averageScoreNoDecimals = totalScore / 6;
+        Console.WriteLine($"Double: {averageScore} and Integer {averageScoreNoDecimals}");
+        */
+
+        // 5. Output
+        Console.WriteLine("-----------------------------");
+        Console.WriteLine($"Name:  {name}");
+        Console.WriteLine($"Class: {characterClass}");
+        Console.WriteLine("-----------------------------");
+        Console.WriteLine($"STR: {strength}");
+        Console.WriteLine($"DEX: {dexterity}");
+        Console.WriteLine($"CON: {constitution}");
+        Console.WriteLine($"INT: {intelligence}");
+        Console.WriteLine($"WIS: {wisdom}");
+        Console.WriteLine($"CHA: {charisma}");
+        Console.WriteLine("-----------------------------");
+        Console.WriteLine($"Total Power: {totalScore}");
+        // F2 formats the number to 2 decimal places
+        Console.WriteLine($"Average:     {averageScore:F2}"); 
+        Console.WriteLine("-----------------------------");
     }
 }
