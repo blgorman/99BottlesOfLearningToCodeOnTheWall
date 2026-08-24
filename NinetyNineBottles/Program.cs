@@ -4,7 +4,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        int numberOfBottles = 3;
+        int numberOfBottles = 99;
         int originalNumberOfBottles = numberOfBottles;
         while (numberOfBottles >= 0)
         {
