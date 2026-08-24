@@ -4,26 +4,47 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        // Appendix B Mini Challenge - Rule-Based Decision Making
-        //
-        // The Rules - to rent a car, a user must:
-        // 1. Be 25 years or older.
-        // 2. Have a valid driver's license.
-        // 3. Have insurance.
-        //
-        // EXCEPTION: if the user is under 25 (but at least 21), they can still rent
-        // IF they agree to pay a surcharge AND have a valid license AND insurance.
-        //
-        // Instructions:
-        // 1. Ask the user for their age.
-        // 2. Ask if they have a license (yes/no).
-        // 3. Ask if they have insurance (yes/no).
-        // 4. If they are under 25 (but at least 21), ask if they agree to pay the surcharge (yes/no).
-        // 5. Use if/else logic with && and || to print "Rental Approved" or "Rental Denied".
-        //
-        // Hint: you might need nested if statements, or one big complex condition.
-        //       Try both approaches!
+        Console.Write("Enter your age: ");
+        string ageInput = Console.ReadLine();
 
-        // Your code goes here.
+        if (int.TryParse(ageInput, out int age))
+        {
+            Console.Write("Do you have a valid driver's license? (yes/no): ");
+            string licenseInput = Console.ReadLine();
+            bool hasLicense = "yes".Equals(licenseInput, StringComparison.OrdinalIgnoreCase);
+
+            Console.Write("Do you have insurance? (yes/no): ");
+            string insuranceInput = Console.ReadLine();
+            bool hasInsurance = "yes".Equals(insuranceInput, StringComparison.OrdinalIgnoreCase);
+
+            bool acceptsSurcharge = false;
+            if (age >= 21 && age < 25)
+            {
+                Console.Write("Renters under 25 pay a surcharge. Do you agree? (yes/no): ");
+                string surchargeInput = Console.ReadLine();
+                acceptsSurcharge = "yes".Equals(surchargeInput, StringComparison.OrdinalIgnoreCase);
+            }
+
+            // Complex condition using && and ||
+            // Case 1: Standard renter (25+, license, insurance)
+            // Case 2: Young renter (21-24, license, insurance, agrees to the surcharge)
+            if ((age >= 25 && hasLicense && hasInsurance) || 
+                (age >= 21 && age < 25 && hasLicense && hasInsurance && acceptsSurcharge))
+            {
+                Console.WriteLine("Rental Approved");
+                if (age < 25)
+                {
+                    Console.WriteLine("(Surcharge added for driver under 25)");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Rental Denied");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid age entered.");
+        }
     }
 }
